@@ -86,7 +86,7 @@ class Program
     private static Dictionary<string, object> AppendAdditionalParameters(Dictionary<string, object> RemoteWorkerOptions)
     {
         Dictionary<string, object> newDictionary = new Dictionary<string, object>(RemoteWorkerOptions);
-        newDictionary.Add("created_at", DateTimeOffset.Now.ToUnixTimeMilliseconds());
+        newDictionary.Add("created_at", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
         newDictionary.Add("jid", GenerateSecureRandomHex(12));
         return newDictionary;
     }
@@ -113,7 +113,7 @@ class Program
         Dictionary<string, object> JobParameters = GetFormattedJobOption(JobClass, RemoteWorkerJobParameters);
         Dictionary<string, object> NormalizedArguments = JobParameters.Union(RemoteWorkerOptions).ToDictionary(k => k.Key, v => v.Value);
         Dictionary<string, object> OptionsForRedis = AppendAdditionalParameters(NormalizedArguments);
-        OptionsForRedis.Add("enqueued_at", DateTimeOffset.Now.ToUnixTimeMilliseconds());
+        OptionsForRedis.Add("enqueued_at", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
         return JsonConvert.SerializeObject(OptionsForRedis);
     }
 }
