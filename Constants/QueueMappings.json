@@ -1,0 +1,4 @@
+{
+  "GroupSyncJob": "group_sync",
+  "AadJobs::IdentitySyncJobs::LicenseRefreshJob": "identity_sync"
+}
